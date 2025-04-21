@@ -1,20 +1,24 @@
 import { useState } from "react"
-import { View,Text, StatusBar,StyleSheet, Button } from "react-native"
+import { View,Text, StatusBar,StyleSheet, Button,TextInput} from "react-native"
 
 
 
 export default function HomeScreen  ()  {
+    const[text,setText] = useState("")
     return (
         <View style={styles.div}>
             <Text>hELLO</Text>
             <Hello name = "Vijay"/>
             <Counter/>
+            <TextInput onChangeText={(newtext) => setText(newtext)} placeholder="type here"/>
+            <Text>{text}</Text>
+
             <StatusBar barStyle="dark-content"/>
         </View>
     )
 }
 
-const Hello = ({name}) => {
+const Hello = ({name }) => {
     return (
         <View>
             <Text>Hello {name}</Text>
