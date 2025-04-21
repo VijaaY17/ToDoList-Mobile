@@ -1,96 +1,123 @@
 import { useState } from "react"
-import { View,Text, StatusBar,StyleSheet, Button,TextInput,ScrollView} from "react-native"
+import { View,Text, StatusBar,StyleSheet,TextInput,ScrollView, FlatList} from "react-native"
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
 
 
 
-export default function HomeScreen  ()  {
-    const[text,setText] = useState("")
-    const letter = ['A','B','C','D','E','F','G','H','I','J','K','l','m','n','o','p']
+export default function ToDoList  ()  {
+    const[task,setTask] = useState<string>("")
+    const[tasks,setTasks] = useState<string[]>([])
+
+    const AddTask = () => {
+        if(task.trim())
+        setTasks([...tasks,task])
+        setTask("")
+    }
+
+    
+
     return (
+        
         <View style={styles.div}>
-            <Text>hELLO</Text>
-            <Hello name = "Vijay"/>
-            <Counter/>
-            <TextInput onChangeText={(newtext) => setText(newtext)} placeholder="type here"/>
-            <Text>{text}</Text>
-            {/* <View>
-                {letter.map((letters) => {
-                    return (
-                        <Text style={styles.letter}>{letters}</Text>
-                )
-                })}
-            </View> */}
+            <Text style={styles.title}>ToDoList</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Enter a task..."
+                placeholderTextColor="#aaa"
+                value={task}
+                onChangeText={setTask}
+            />
+            
+             <Button
+          mode="contained"
+          onPress={AddTask}
+          style={styles.paperButton}
+          contentStyle={{ paddingVertical: 8 }}
+          buttonColor="dodgerblue"
+          
+        >
+          Add Task
+        </Button>
+        
 
-            <ScrollView>
-                {letter.map((letters) => {
-                    return (
-                        <Text style={styles.letter}>{letters}</Text>
-                    )
-                })}
+      <FlatList
+            data={tasks}
+            keyExtractor={(item,index) => index.toString()}
+            renderItem={({item}) => (
+                <Card style={styles.card}>
+                    <Card.Content>
+                    <Title style={styles.cardText}>📝 {item}</Title>
+                    </Card.Content>
+                    </Card>
+            )}
+            style={styles.taskList}
+            />
+
+            
+        </View> 
+        
+
+            
                 
-            </ScrollView>
-
-
-            <StatusBar barStyle="dark-content"/>
-        </View>
+           
     )
 }
 
-const Hello = ({name }) => {
-    return (
-        <View>
-            <Text>Hello {name}</Text>
-        </View>
-    )
-}
 
-const Counter = () => {
-     const [count,setCount] = useState(0)
-
-     const increment = () => {
-        setCount(count+1);
-     }
-
-     const decrement = () => {
-        setCount(count-1);
-     }
-
-    return (
-        <View>
-            <Text style={styles.text}>Count : {count}</Text>
-            <View style={styles.container}>
-                <Button onPress={increment} title="Increment"/>
-                <Button onPress={decrement} title="Decrement"/>
-            </View>
-        </View>
-    )
-}
 
 
 
 const styles = StyleSheet.create(
     {
         div : {
-            flex: 1,
-            alignItems : "center",
-            justifyContent : "center"
+            flex:1,
+            marginTop:40,
+            padding:40,
+            alignItems:"center"
         },
 
-        container : {
-            flexDirection : "row",
-            width : "80%",
-            justifyContent : "space-around",
+        title : {
+            fontSize:30,
+            fontFamily:'tahoma',
+            fontWeight:"bold",
+            color:"dodgerblue",
+
+        },
+        input: {
+           
+            borderWidth:1,
+            width:'100%',
+            borderRadius:8,
+            fontSize:16,
+            borderColor:'#ccc',
+            padding:12,
+            marginTop:20
             
+          },
+          paperButton: {
+            width: "100%",
+            borderRadius: 8,
+            marginTop:10
+          },
+          taskList: {
+            width: '100%',
+          },
+          card: {
+            marginBottom: 10,
+            backgroundColor: "#f1f5f9",
+            borderRadius: 10,
+            
+            
+            
+          },
+          cardText: {
+            fontSize: 18,
+            color: "#111",
+          },
+          
 
-        },
-        text : {
-            textAlign : "center",
-            marginBottom : 10
-        },
 
-        letter : {
-            marginBottom : 40
-        }
+        
 
 
 
