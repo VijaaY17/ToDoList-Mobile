@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { View,Text, StatusBar,StyleSheet, Button,TextInput} from "react-native"
+import { View,Text, StatusBar,StyleSheet, Button,TextInput,ScrollView} from "react-native"
 
 
 
 export default function HomeScreen  ()  {
     const[text,setText] = useState("")
+    const letter = ['A','B','C','D','E','F','G','H','I','J','K','l','m','n','o','p']
     return (
         <View style={styles.div}>
             <Text>hELLO</Text>
@@ -12,6 +13,23 @@ export default function HomeScreen  ()  {
             <Counter/>
             <TextInput onChangeText={(newtext) => setText(newtext)} placeholder="type here"/>
             <Text>{text}</Text>
+            {/* <View>
+                {letter.map((letters) => {
+                    return (
+                        <Text style={styles.letter}>{letters}</Text>
+                )
+                })}
+            </View> */}
+
+            <ScrollView>
+                {letter.map((letters) => {
+                    return (
+                        <Text style={styles.letter}>{letters}</Text>
+                    )
+                })}
+                
+            </ScrollView>
+
 
             <StatusBar barStyle="dark-content"/>
         </View>
@@ -68,7 +86,12 @@ const styles = StyleSheet.create(
         text : {
             textAlign : "center",
             marginBottom : 10
+        },
+
+        letter : {
+            marginBottom : 40
         }
+
 
 
     }
