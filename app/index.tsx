@@ -185,11 +185,12 @@ const schema = Yup.object().shape({
 })
 
 export default function Register () {
+  console.log("check")
 
   const {control,handleSubmit}=useForm()
   return (
   <View>
-    <Text>hello world</Text>
+    <Text>hello world</Text>     
   </View>
   )
 }
